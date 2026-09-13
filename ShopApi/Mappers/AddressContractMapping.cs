@@ -1,5 +1,6 @@
-using ShopApi.Contracts.Addresses;
+using ShopApi.Contracts.Address;
 using ShopApplication.DTOs;
+using ShopApplication.DTOs.Address;
 
 namespace ShopApi.Mappers;
 
@@ -7,7 +8,7 @@ public static class AddressContractMapping
 {
     public static AddressResponse MapToResponse(this AddressDto dto) => new(
         dto.Id,
-        dto.CustomerId,
+        dto.UserId,
         dto.Province,
         dto.City,
         dto.AddressText,
@@ -15,7 +16,14 @@ public static class AddressContractMapping
     
     
     public static CreateAddressDto CreateMapToDto(this CreateAddressRequest request) => new (
-        request.CustomerId,
+        request.UserId,
+        request.Province,
+        request.City,
+        request.AddressText,
+        request.PostalCode);
+
+    public static UpdateAddressDto UpdateMapToDto(this UpdateAddressRequest request) => new(
+        request.UserId,
         request.Province,
         request.City,
         request.AddressText,

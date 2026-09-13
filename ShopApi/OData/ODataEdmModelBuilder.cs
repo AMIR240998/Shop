@@ -8,7 +8,7 @@ public static class ODataEdmModelBuilder
     public static Microsoft.OData.Edm.IEdmModel CreateEdmModel()
     {
         var builder = new ODataConventionModelBuilder();
-        var products = builder.EntitySet<Customers>("ODataCustomer");
+        var products = builder.EntitySet<User>("ODataCustomer");
         var product = products.EntityType;
         product.HasKey(p => p.Id);
         product.Property(p => p.FirstName);
@@ -17,7 +17,7 @@ public static class ODataEdmModelBuilder
         product.Property(p => p.UserName);
         product.Property(p => p.PasswordHash);
         product.Property(p => p.Address);
-        product.Property(p => p.CreateAt);
+        product.Property(p => p.CreatedAt);
         
         return builder.GetEdmModel();
     }

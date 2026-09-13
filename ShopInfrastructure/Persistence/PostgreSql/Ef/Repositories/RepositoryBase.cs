@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ShopApplication.Repositories;
-using ShopInfrastructure.Persistence.SqlServer.Ef.Configurations;
+using ShopInfrastructure.Persistence.PostgreSql.Ef.Configurations;
 
 namespace ShopInfrastructure.Persistence.PostgreSql.Ef.Repositories;
 

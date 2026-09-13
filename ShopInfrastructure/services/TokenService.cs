@@ -12,13 +12,13 @@ public class TokenService(IOptions<JwtOptions> options) : ITokenService
 {
     private readonly JwtOptions _options = options.Value;
 
-    public string GenerateJwtToken(Customers customer)
+    public string GenerateJwtToken(User user)
     {
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.NameIdentifier, customer.Id.ToString()),
-            new Claim(ClaimTypes.Name, customer.UserName),
-            new Claim(ClaimTypes.Role, customer.Role.ToString())
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Name, user.UserName),
+            new Claim(ClaimTypes.Role, user.Role.ToString())
         };
 
         var key = new SymmetricSecurityKey(

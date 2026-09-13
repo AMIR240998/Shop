@@ -1,4 +1,6 @@
 using System.Text;
+using Amazon.Runtime;
+using Amazon.S3;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,11 +12,13 @@ using ShopInfrastructure.Caching.Redis;
 using ShopInfrastructure.Persistence.MongoDb;
 using ShopInfrastructure.Persistence.MongoDb.Repositories;
 using ShopInfrastructure.Persistence.PostgreSql.Dapper;
+using ShopInfrastructure.Persistence.PostgreSql.Ef.Configurations;
 using ShopInfrastructure.Persistence.PostgreSql.Ef.Repositories;
 using ShopInfrastructure.Persistence.PostgreSql.Ef.Seed;
-using ShopInfrastructure.Persistence.SqlServer.Ef.Configurations;
 using ShopInfrastructure.Persistence.SqlServer.Ef.Repositories;
 using ShopInfrastructure.services;
+using ShopInfrastructure.services.FileStorage;
+using ShopInfrastructure.services.Payment;
 
 namespace ShopInfrastructure;
 
@@ -46,14 +50,20 @@ public static class DependencyInjection
                 };
             });
 
-        services.AddScoped<IProductRepository, ProductsRepository>();
-        services.AddScoped<ICustomerRepository, CustomersRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IAddressRepository, AddressRepository>();
-        services.AddScoped<ICategoriesRepository, CategoryRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IFavoriteRepository, FavoriteRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
-        services.AddScoped<IProductImageRepository, ProductsImageRepository>();
-        
+        services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+        services.AddScoped<IProductImageRepository, ProductImageRepository>();
+        services.AddScoped<ICommentRepository, CommentRepository>();
+        services.AddScoped<IPaymentRepository, PaymentRepository>();
+        services.AddScoped<IPaymentGateway, FakePaymentGateway>();
+        services.AddScoped<IBasketRepository, BasketRepository>();
+        services.AddScoped<IDiscountRepository, DiscountRepository>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         
         services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddScoped<ITokenService, TokenService>();
@@ -65,6 +75,8 @@ public static class DependencyInjection
         
         services.AddMongo(configuration);
         services.AddRedis(configuration);
+        
+        services.AddArvanCloud(configuration);
     }
     private static void AddMongo(this IServiceCollection services, IConfiguration configuration)
     {
@@ -79,8 +91,8 @@ public static class DependencyInjection
     private static void AddRedis(this IServiceCollection services, IConfiguration configuration)
     {
         //IDistributedCache
-        services.Configure<RedisSettings>(
-            configuration.GetSection(RedisSettings.SectionName));
+        services.Configure<RedisSetting>(
+            configuration.GetSection(RedisSetting.SectionName));
 
         services.AddStackExchangeRedisCache(options =>
         {
@@ -94,5 +106,29 @@ public static class DependencyInjection
         //
         // services.AddSingleton<RedisConnection>();
         // services.AddSingleton<ICacheService, DistributedCacheService>();
+    }
+
+    private static void AddArvanCloud(this IServiceCollection services, IConfiguration configuration)
+    {
+        var accessKey = configuration["ArvanCloud:AccessKey"];
+
+        var secretKey = configuration["ArvanCloud:SecretKey"];
+
+        var serviceUrl = configuration["ArvanCloud:ServiceUrl"];
+
+        var credentials = new BasicAWSCredentials(
+            accessKey,
+            secretKey);
+    
+        var s3Config = new AmazonS3Config
+        {
+            ServiceURL = serviceUrl,
+            ForcePathStyle = true
+        };
+
+        services.AddSingleton<IAmazonS3>(
+            new AmazonS3Client(credentials, s3Config));
+
+        services.AddScoped<IFileStorage, ArvanCloudFileStorage>();
     }
 }

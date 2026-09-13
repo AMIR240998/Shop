@@ -17,6 +17,9 @@ public class MongoContext
 
     private IMongoDatabase Database { get; }
 
-    public IMongoCollection<ExceptionLogs> ExceptionLogs =>
-        Database.GetCollection<ExceptionLogs>(_settings.ExceptionLogsCollection);
+    public IMongoCollection<ExceptionLog> ExceptionLogs =>
+        Database.GetCollection<ExceptionLog>(_settings.ExceptionLogsCollection);
+    
+    public IMongoCollection<Comment>  Comments =>
+        Database.GetCollection<Comment>(_settings.CommentsCollection);
 }

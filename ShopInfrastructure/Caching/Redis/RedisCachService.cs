@@ -6,11 +6,11 @@ using StackExchange.Redis;
 
 namespace ShopInfrastructure.Caching.Redis;
 
-public class RedisCachService(RedisConnection connection,IOptions<RedisSettings> settings) : ICacheService
+public class RedisCachService(RedisConnection connection,IOptions<RedisSetting> settings) : ICacheService
 {
     private static readonly JsonSerializerOptions SerializerOptions = new(JsonSerializerDefaults.Web);
     
-    private readonly RedisSettings _settings = settings.Value;
+    private readonly RedisSetting _setting = settings.Value;
     
     private readonly IDatabase _db = connection.Database; 
     
@@ -46,6 +46,6 @@ public class RedisCachService(RedisConnection connection,IOptions<RedisSettings>
         return value;
     }
 
-    private TimeSpan DefaultExpiration => TimeSpan.FromMinutes(_settings.DefaultExpirationMinutes);
-    private string BuildKey(string key) => $"{_settings.InstanceName}{key}";
+    private TimeSpan DefaultExpiration => TimeSpan.FromMinutes(_setting.DefaultExpirationMinutes);
+    private string BuildKey(string key) => $"{_setting.InstanceName}{key}";
 }

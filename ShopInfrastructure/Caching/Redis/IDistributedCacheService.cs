@@ -7,12 +7,13 @@ using ShopApplication.Caching;
 
 namespace ShopInfrastructure.Caching.Redis;
 
-public class DistributedCacheService(IDistributedCache cache,IOptions<RedisSettings> setting) : ICacheService
+public class DistributedCacheService(IDistributedCache cache,IOptions<RedisSetting> setting) : ICacheService
 {
     private static readonly JsonSerializerOptions SerializerOptions = new(JsonSerializerDefaults.Web);
-    private readonly RedisSettings _settings = setting.Value;
-    private TimeSpan DefaultTimeout => TimeSpan.FromMinutes(_settings.DefaultExpirationMinutes);
-    private string BuildCacheKey(string key) => $"{_settings.InstanceName}{key}";
+    
+    private readonly RedisSetting _setting = setting.Value;
+    private TimeSpan DefaultTimeout => TimeSpan.FromMinutes(_setting.DefaultExpirationMinutes);
+    private string BuildCacheKey(string key) => $"{_setting.InstanceName}{key}";
     
     
     
@@ -41,11 +42,11 @@ public class DistributedCacheService(IDistributedCache cache,IOptions<RedisSetti
     public async Task<T> GetOrSetAsync<T>(string key, Func<CancellationToken, Task<T>> functionName, TimeSpan? expiration = null,
         CancellationToken cancellationToken = default)
     {
-        var value = await GetAsync<T>(BuildCacheKey(key),cancellationToken);
-        if (value != null)
-            return value;
-        value = await functionName(cancellationToken);
-        await SetAsync(key,value,expiration,cancellationToken);
-        return value;
+        // var value = await GetAsync<T>(key,cancellationToken);
+        // if (value != null)
+        //     return value;
+        return await functionName(cancellationToken);
+        // await SetAsync(key,value,expiration,cancellationToken);
+        // return value;
     }
 }

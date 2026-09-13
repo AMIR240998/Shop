@@ -19,16 +19,17 @@ public static class MongoMappingConfig
                 return;
 
             RegisterExceptionLog();
+            RegisterComments();
             _registered = true;
         }
     }
 
     private static void RegisterExceptionLog()
     {
-        if (BsonClassMap.IsClassMapRegistered(typeof(ExceptionLogs)))
+        if (BsonClassMap.IsClassMapRegistered(typeof(ExceptionLog)))
             return;
 
-        BsonClassMap.RegisterClassMap<ExceptionLogs>(map =>
+        BsonClassMap.RegisterClassMap<ExceptionLog>(map =>
         {
             map.AutoMap();
 
@@ -36,6 +37,21 @@ public static class MongoMappingConfig
                 .SetIdGenerator(StringObjectIdGenerator.Instance)
                 .SetSerializer(new StringSerializer(BsonType.ObjectId));
 
+            map.SetIgnoreExtraElements(true);
+        });
+    }
+    
+    private static void RegisterComments()
+    {
+        if (BsonClassMap.IsClassMapRegistered(typeof(Comment)))
+            return;
+
+        BsonClassMap.RegisterClassMap<Comment>(map =>
+        {
+            map.AutoMap();
+            map.MapIdMember(x => x.Id)
+                .SetIdGenerator(StringObjectIdGenerator.Instance)
+                .SetSerializer(new StringSerializer(BsonType.ObjectId));
             map.SetIgnoreExtraElements(true);
         });
     }

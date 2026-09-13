@@ -8,6 +8,8 @@
     ".NETCoreApp,Version=v10.0": {
       "ShopInfrastructure/1.0.0": {
         "dependencies": {
+          "AWSSDK.Core": "4.0.102.1",
+          "AWSSDK.S3": "4.0.102.4",
           "Dapper": "2.1.79",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.10",
           "Microsoft.EntityFrameworkCore": "10.0.9",
@@ -23,6 +25,25 @@
         },
         "runtime": {
           "ShopInfrastructure.dll": {}
+        }
+      },
+      "AWSSDK.Core/4.0.102.1": {
+        "runtime": {
+          "lib/net8.0/AWSSDK.Core.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.102.1"
+          }
+        }
+      },
+      "AWSSDK.S3/4.0.102.4": {
+        "dependencies": {
+          "AWSSDK.Core": "4.0.102.1"
+        },
+        "runtime": {
+          "lib/net8.0/AWSSDK.S3.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.102.4"
+          }
         }
       },
       "Azure.Core/1.47.1": {
@@ -1138,6 +1159,7 @@
           "FluentValidation": "12.1.1",
           "FluentValidation.DependencyInjectionExtensions": "12.1.1",
           "MediatR": "14.2.0",
+          "Microsoft.EntityFrameworkCore": "10.0.9",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "11.0.0-preview.6.26359.118",
           "ShopDomain": "1.0.0"
         },
@@ -1163,6 +1185,20 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "AWSSDK.Core/4.0.102.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vsf+/o+S/euH/wG7bO1cha+OWaHvjgvpDeGFO6l3Vcdio9GlSfXkZDD2BogMuAJ+/jDyqqSgqmYVolPKV9ie/A==",
+      "path": "awssdk.core/4.0.102.1",
+      "hashPath": "awssdk.core.4.0.102.1.nupkg.sha512"
+    },
+    "AWSSDK.S3/4.0.102.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rfUhmzlQifO7Uk3AErPweV1FbwZYI+OuogPjfS/7mbVKVWCYYCLkkLozh2mS/qaHPNGPGFeSFAR1NbWnQyd2pQ==",
+      "path": "awssdk.s3/4.0.102.4",
+      "hashPath": "awssdk.s3.4.0.102.4.nupkg.sha512"
     },
     "Azure.Core/1.47.1": {
       "type": "package",

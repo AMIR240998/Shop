@@ -19,8 +19,13 @@ public static class DependencyInjection
         services.AddScoped<CategoryService>();
         services.AddScoped<OrderService>();
         services.AddScoped<FavoriteService>();
-        services.AddScoped<ProductImageService>();
-        services.AddScoped<CustomerService>();
+        //services.AddScoped<ProductImageService>();
+        services.AddScoped<UserService>();
         // services.AddScoped<AddressService>();
+        services.AddScoped<ExceptionLogService>();
+        services.AddScoped<CommentService>();
+        services.AddScoped<PaymentService>();
+        services.AddScoped<BasketService>();
+        services.AddScoped<DiscountService>();
     }
 }

@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 using ShopApplication.Repositories;
 using ShopDomain.Entities;
@@ -16,7 +17,7 @@ public class ExceptionHandlingMiddleware(RequestDelegate next,ILogger<ExceptionH
         catch (Exception ex)
         {
             await AddExceptionLogAsync(context, ResolveStatusCode(ex), ex, repository);
-            await WriteProblemAsync(context, HttpStatusCode.BadRequest, ex.Message);
+            await WriteProblemAsync(context, ResolveStatusCode(ex), ex.Message);
         }
     }
 
@@ -24,9 +25,28 @@ public class ExceptionHandlingMiddleware(RequestDelegate next,ILogger<ExceptionH
     {
         return ex switch
         {
-            DuplicateUserNameException => HttpStatusCode.Conflict,
-            EntityNotFoundException or NotExistUserNameException => HttpStatusCode.NotFound,
-            _ => HttpStatusCode.BadRequest
+            DuplicateUserNameException
+                or InsufficientStockException 
+                or DuplicateImageException
+                => HttpStatusCode.Conflict,
+
+            EntityNotFoundException
+                or NotExistUserNameException
+                or ImageNotFoundException
+                => HttpStatusCode.NotFound,
+
+            ArgumentException
+                or ValidationException
+                or InvalidQuantityException
+                or InvalidBalanceException
+                or InvalidPriceException
+                or ArgumentOutOfRangeException
+                => HttpStatusCode.BadRequest,
+
+            UnauthorizedAccessException
+                => HttpStatusCode.Unauthorized,
+
+            _ => HttpStatusCode.InternalServerError
         };
     }
 
@@ -34,23 +54,17 @@ public class ExceptionHandlingMiddleware(RequestDelegate next,ILogger<ExceptionH
     {
         try
         {
-            var log = ExceptionLogs.AddLog(ex,context.Request.Path,context.Request.Method,(int)statusCode);
+            var log = ExceptionLog.AddLog(ex,context.Request.Path,context.Request.Method,(int)statusCode);
             await repository.AddAsync(log,context.RequestAborted);
         }
-        catch (Exception exeption)
+        catch (Exception exception)
         {
+
             logger.LogError(
-                ex,
-                "Unhandled exception: {ExceptionType}",
-                ex.GetType().Name);
+                exception,
+                "Failed to save exception log to MongoDB.");
 
-            var status = ResolveStatusCode(exeption);
-
-            await AddExceptionLogAsync(
-                context,
-                status,
-                ex,
-                repository);
+            var status = ResolveStatusCode(exception);
 
             await WriteProblemAsync(
                 context,

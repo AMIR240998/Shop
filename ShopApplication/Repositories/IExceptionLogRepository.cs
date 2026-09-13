@@ -4,11 +4,13 @@ namespace ShopApplication.Repositories;
 
 public interface IExceptionLogRepository
 {
-    Task AddAsync(ExceptionLogs log, CancellationToken cancellationToken = default);
+    Task AddAsync(ExceptionLog log, CancellationToken cancellationToken = default);
     
-    Task<ExceptionLogs?> GetByIdAsync(string id, CancellationToken cancellationToken = default);
+    Task<ExceptionLog?> GetByIdAsync(string id, CancellationToken cancellationToken = default);
     
-    Task<IReadOnlyList<ExceptionLogs>> GetAllAsync(CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<ExceptionLog>> GetAllAsync(CancellationToken cancellationToken = default);
     
-    Task<IReadOnlyList<ExceptionLogs>> GetRecentAsync(int count, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<ExceptionLog>> GetRecentAsync(int count, CancellationToken cancellationToken = default);
+    
+    Task RemoveAllAsync(CancellationToken cancellationToken = default);
 }

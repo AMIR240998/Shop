@@ -1,5 +1,6 @@
 using ShopApi.Contracts.Products;
 using ShopApplication.DTOs;
+using ShopApplication.DTOs.Product;
 
 namespace ShopApi.Mappers;
 
@@ -12,31 +13,54 @@ public static class ProductContractMapping
         dto.Price,
         dto.Stock,
         dto.ImageUrl,
+        dto.ContentType,
         dto.CategoryId,
         dto.IsActive,
         dto.IsDeleted,
         dto.CreatedAt,
         dto.UpdatedAt);
-    
-    public static CreateProductDto MapToDtoCreate(this CreateProductRequest request) => new (
-        request.Name,
-        request.Description,
-        request.Price,
-        request.Stock,
-        request.ImageUrl,
-        request.CategoryId);
-    
-    
-    public static UpdateProductDto MapToDtoUpdate(this UpdateProductRequest request) => new (
-        request.Name,
-        request.Description,
-        request.Price,
-        request.Stock,
-        request.ImageUrl,
-        request.CategoryId);
+
+    public static CreateProductDto MapToDtoCreate(this CreateProductRequest request)
+    { 
+        var stream = request.ImageUrl.OpenReadStream();
+
+        var dto = new CreateProductDto(
+            Name: request.Name,
+            Description: request.Description,
+            Price: request.Price,
+            Stock: request.Stock,
+            new FileUpload(
+                stream,
+                request.ImageUrl.FileName,
+                request.ImageUrl.ContentType),
+            request.CategoryId);
+        
+        return dto;
+    }
+
+
+
+    public static UpdateProductDto MapToDtoUpdate(this UpdateProductRequest request)
+    {
+        var stream = request.ImageUrl.OpenReadStream();
+
+        var dto = new UpdateProductDto(
+            Name: request.Name,
+            Description: request.Description,
+            Price: request.Price,
+            Stock: request.Stock,
+            new FileUpload(
+                stream,
+                request.ImageUrl.FileName,
+                request.ImageUrl.ContentType),
+            request.CategoryId);
+        
+        return dto;
+    }
+        
     
 
-    public static FilterProductsDto MapToFilterDto(this FilterProductsResponse response) => new(
+    public static FilterProductDto MapToFilterDto(this FilterProductResponse response) => new(
         response.SearchPhase,
         response.CategoryId,
         response.MaxPrice);

@@ -3,7 +3,7 @@ using StackExchange.Redis;
 
 namespace ShopInfrastructure.Caching.Redis;
 //StackExchangeRedis
-public class RedisConnection(IOptions<RedisSettings> settings) : IDisposable
+public class RedisConnection(IOptions<RedisSetting> settings) : IDisposable
 {
     private readonly ConnectionMultiplexer _connection = 
         ConnectionMultiplexer.Connect(settings.Value.ConnectionString);

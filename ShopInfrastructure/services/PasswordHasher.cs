@@ -6,7 +6,7 @@ namespace ShopInfrastructure.services;
 
 public class PasswordHasher : IPasswordHasher
 {
-    private readonly Microsoft.AspNetCore.Identity.PasswordHasher<Customers> _hasher = new();
+    private readonly Microsoft.AspNetCore.Identity.PasswordHasher<User> _hasher = new();
     
     
     public string HashPassword(string password)

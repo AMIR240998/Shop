@@ -4,5 +4,5 @@ namespace ShopApplication.Repositories;
 
 public interface ITokenService
 {
-    string GenerateJwtToken(Customers customers);
+    string GenerateJwtToken(User user);
 }

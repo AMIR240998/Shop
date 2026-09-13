@@ -1,10 +1,9 @@
 using ShopApplication.Repositories;
 using ShopDomain.Entities;
-using ShopInfrastructure.Persistence.PostgreSql.Ef.Repositories;
-using ShopInfrastructure.Persistence.SqlServer.Ef.Configurations;
+using ShopInfrastructure.Persistence.PostgreSql.Ef.Configurations;
 
-namespace ShopInfrastructure.Persistence.SqlServer.Ef.Repositories;
+namespace ShopInfrastructure.Persistence.PostgreSql.Ef.Repositories;
 
-public class AddressRepository(ShopDbContext context) : RepositoryBase<Addresses>(context),IAddressRepository
+public class AddressRepository(ShopDbContext context) : RepositoryBase<Address>(context),IAddressRepository
 {
 }
