@@ -2,16 +2,17 @@ using ShopApplication.DTOs;
 using ShopApplication.DTOs.Address;
 using ShopApplication.DTOs.User;
 using ShopApplication.Repositories;
+using ShopApplication.Services.Interface;
 using ShopDomain.Entities;
 using ShopDomain.Enums;
 using ShopDomain.Exceptions;
 
-namespace ShopApplication.Services;
+namespace ShopApplication.Services.Implementation;
 
 public class UserService(
     IUserRepository userRepository,
     IPasswordHasher passwordHasher,
-    ITokenService tokenService)
+    ITokenService tokenService) : IUserService
 {
     public async Task<IReadOnlyList<UserDto>> GetAllAsync(
         CancellationToken cancellationToken = default)

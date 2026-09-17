@@ -6,10 +6,12 @@ using ShopApi.Contracts.Order;
 using ShopApi.Contracts.Orders;
 using ShopApi.Mappers;
 using ShopApplication.Services;
+using ShopApplication.Services.Implementation;
+using ShopApplication.Services.Interface;
 
 namespace ShopApi.Controllers.V1;
 [ApiVersion(1.0)]
-public class OrderController(OrderService service) : BaseController
+public class OrderController(IOrderService service) : BaseController
 {
     [HttpGet(OrderUrlConstant.GetAllOrders)]
     public async Task<ApiResult<IReadOnlyList<OrderResponse>>> GetAllOrders(CancellationToken cancellationToken = default)

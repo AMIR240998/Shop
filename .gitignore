@@ -1,0 +1,132 @@
+# ==========================================
+# .NET / Visual Studio / Rider
+# ==========================================
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio cache
+.vs/
+
+# Visual Studio user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains Rider / ReSharper
+.idea/
+*.sln.iml
+*.DotSettings.user
+
+# ==========================================
+# NuGet
+# ==========================================
+
+# NuGet packages
+packages/
+
+# NuGet cache
+*.nupkg
+*.snupkg
+
+# ==========================================
+# Logs
+# ==========================================
+
+*.log
+logs/
+Log/
+log/
+
+# ==========================================
+# Database
+# ==========================================
+
+# Local database files
+*.mdf
+*.ldf
+*.ndf
+
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# ==========================================
+# ASP.NET Core
+# ==========================================
+
+# User secrets
+secrets.json
+
+# Local HTTPS development certificate
+*.pfx
+
+# ==========================================
+# Environment variables
+# ==========================================
+
+.env
+.env.*
+!.env.example
+
+# ==========================================
+# OS generated files
+# ==========================================
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+
+# macOS
+.DS_Store
+
+# Linux
+*~
+
+# ==========================================
+# Temporary files
+# ==========================================
+
+*.tmp
+*.temp
+*.bak
+*.swp
+*.cache
+
+# ==========================================
+# Publish output
+# ==========================================
+
+publish/
+Publish/
+artifacts/
+
+# ==========================================
+# Test results
+# ==========================================
+
+TestResults/
+*.trx
+
+# ==========================================
+# Coverage
+# ==========================================
+
+coverage/
+coverage.opencover.xml
+coverage.cobertura.xml
+
+# ==========================================
+# Generated files
+# ==========================================
+
+GeneratedFiles/

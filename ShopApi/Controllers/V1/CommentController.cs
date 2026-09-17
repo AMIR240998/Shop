@@ -4,10 +4,12 @@ using ShopApi.Contracts;
 using ShopApi.Contracts.Comment;
 using ShopApi.Mappers;
 using ShopApplication.Services;
+using ShopApplication.Services.Implementation;
+using ShopApplication.Services.Interface;
 
 namespace ShopApi.Controllers.V1;
 
-public class CommentController(CommentService service) : BaseController
+public class CommentController(ICommentService service) : BaseController
 {
     [HttpGet(CommentUrlConstant.GetAll)]
     public async Task<ApiResult<IReadOnlyList<CommentResponse>>> GetAll(CancellationToken cancellationToken = default)

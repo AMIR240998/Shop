@@ -4,11 +4,13 @@ using ShopApi.Contracts;
 using ShopApi.Contracts.ExceptionLog;
 using ShopApi.Mappers;
 using ShopApplication.Services;
+using ShopApplication.Services.Implementation;
+using ShopApplication.Services.Interface;
 using ShopDomain.Entities;
 
 namespace ShopApi.Controllers.V1;
 
-public class ExceptionLogController(ExceptionLogService service) : BaseController
+public class ExceptionLogController(IExceptionLogService service) : BaseController
 {
     [HttpGet(ExceptionLogUrlConstant.GetAll)]
     public async Task<ApiResult<IReadOnlyList<ExceptionLogResponse>>> GetAll(

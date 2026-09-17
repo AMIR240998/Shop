@@ -9,10 +9,12 @@ using ShopApi.Contracts.Pagination;
 using ShopApi.Contracts.User;
 using ShopApi.Mappers;
 using ShopApplication.Services;
+using ShopApplication.Services.Implementation;
+using ShopApplication.Services.Interface;
 
 namespace ShopApi.Controllers.V1;
 [ApiVersion(1.0)]
-public class UserController(UserService userService) : BaseController
+public class UserController(IUserService userService) : BaseController
 {
     [HttpGet(UserUrlConstant.GetAll)]
     public async Task<ApiResult<IReadOnlyList<UserResponse>>> GetAll(

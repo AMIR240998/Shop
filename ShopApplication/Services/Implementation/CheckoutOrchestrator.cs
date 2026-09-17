@@ -1,3 +1,4 @@
+using ShopApplication.Services.Implementation;
 using ShopDomain.Entities;
 using ShopDomain.Enums;
 

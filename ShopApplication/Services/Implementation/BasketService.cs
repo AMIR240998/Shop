@@ -1,11 +1,12 @@
 using ShopApplication.DTOs.Basket;
 using ShopApplication.Repositories;
+using ShopApplication.Services.Interfaces;
 using ShopDomain.Entities;
 using ShopDomain.Exceptions;
 
-namespace ShopApplication.Services;
+namespace ShopApplication.Services.Implementation;
 
-public class BasketService(IBasketRepository basketRepository)
+public class BasketService(IBasketRepository basketRepository) : IBasketService
 {
     public async Task<IReadOnlyList<BasketItemDto>> GetItemsByIdAsync(long basketId,
         CancellationToken cancellationToken = default)

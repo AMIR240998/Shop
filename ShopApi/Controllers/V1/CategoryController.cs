@@ -5,10 +5,12 @@ using ShopApi.Contracts;
 using ShopApi.Contracts.Categories;
 using ShopApi.Mappers;
 using ShopApplication.Services;
+using ShopApplication.Services.Implementation;
+using ShopApplication.Services.Interface;
 
 namespace ShopApi.Controllers.V1;
 [ApiVersion(1.0)]
-public class CategoryController(CategoryService categoryService) : BaseController
+public class CategoryController(ICategoryService categoryService) : BaseController
 {
     [HttpGet(CategoryUrlConstant.GetAll)]
     public async Task<ApiResult<List<CategoryResponse>>> GetAll(CancellationToken cancellationToken = default)

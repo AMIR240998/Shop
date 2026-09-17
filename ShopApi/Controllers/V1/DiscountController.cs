@@ -5,10 +5,12 @@ using ShopApi.Contracts;
 using ShopApi.Contracts.Discount;
 using ShopApi.Mappers;
 using ShopApplication.Services;
+using ShopApplication.Services.Implementation;
+using ShopApplication.Services.Interface;
 
 namespace ShopApi.Controllers.V1;
 [ApiVersion(1.0)]
-public class DiscountController(DiscountService service) : BaseController
+public class DiscountController(IDiscountService service) : BaseController
 {
     [HttpGet(DiscountUrlConstant.GetAll)]
     public async Task<ApiResult<IReadOnlyList<DiscountResponse>>> GetAll(CancellationToken cancellationToken = default)

@@ -1,11 +1,12 @@
 using ShopApplication.DTOs;
 using ShopApplication.Repositories;
+using ShopApplication.Services.Interface;
 using ShopDomain.Entities;
 using ShopDomain.Exceptions;
 
-namespace ShopApplication.Services;
+namespace ShopApplication.Services.Implementation;
 
-public class ExceptionLogService(IExceptionLogRepository repository)
+public class ExceptionLogService(IExceptionLogRepository repository) : IExceptionLogService
 {
     public async Task<IReadOnlyList<ExceptionLogDto>> GetAllAsync(CancellationToken cancellationToken = default)
     {

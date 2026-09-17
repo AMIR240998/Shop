@@ -1,11 +1,12 @@
 using ShopApplication.DTOs.Favorite;
 using ShopApplication.Repositories;
+using ShopApplication.Services.Interface;
 using ShopDomain.Entities;
 using ShopDomain.Exceptions;
 
-namespace ShopApplication.Services;
+namespace ShopApplication.Services.Implementation;
 
-public class FavoriteService(IFavoriteRepository repository)
+public class FavoriteService(IFavoriteRepository repository) : IFavoriteService
 {
     public async Task<IReadOnlyList<FavoriteDto>> GetAllAsync(CancellationToken cancellationToken = default)
     {

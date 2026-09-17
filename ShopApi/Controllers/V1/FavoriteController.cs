@@ -4,10 +4,12 @@ using ShopApi.Contracts;
 using ShopApi.Contracts.Favorite;
 using ShopApi.Mappers;
 using ShopApplication.Services;
+using ShopApplication.Services.Implementation;
+using ShopApplication.Services.Interface;
 
 namespace ShopApi.Controllers.V1;
 
-public class FavoriteController(FavoriteService service) : BaseController
+public class FavoriteController(IFavoriteService service) : BaseController
 {
     [HttpGet(FavoriteUrlConstant.GetAll)]
     public async Task<ApiResult<IReadOnlyList<FavoriteResponse>>> GetAll(CancellationToken cancellationToken = default)

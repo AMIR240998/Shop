@@ -8,10 +8,13 @@ using ShopApi.Contracts.ProductImages;
 using ShopApi.Contracts.Products;
 using ShopApi.Mappers;
 using ShopApplication.Services;
+using ShopApplication.Services.Implementation;
+using ShopApplication.Services.Interface;
+
 namespace ShopApi.Controllers.V1;
 
 [ApiVersion(1.0)]
-public class ProductController(ProductService productService) : BaseController
+public class ProductController(IProductService productService) : BaseController
 {
     [HttpGet(ProductUrlConstant.GetAllPaged)]
     public async Task<ApiResult<PagedResult<ProductResponse>>> GetAllPaged([FromQuery] PaginationRequest request,

@@ -5,10 +5,12 @@ using ShopApi.Contracts;
 using ShopApi.Contracts.Basket;
 using ShopApi.Mappers;
 using ShopApplication.Services;
+using ShopApplication.Services.Implementation;
+using ShopApplication.Services.Interfaces;
 
 namespace ShopApi.Controllers.V1;
 [ApiVersion(1.0)]
-public class BasketController(BasketService basketService) : BaseController
+public class BasketController(IBasketService basketService) : BaseController
 {
     [HttpGet(BasketUrlConstant.GetItemsById)]
     public async Task<ApiResult<IReadOnlyList<BasketItemResponse>>> GetItemsById(long basketId,

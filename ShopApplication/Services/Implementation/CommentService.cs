@@ -1,12 +1,13 @@
 using ShopApplication.DTOs;
 using ShopApplication.DTOs.Comment;
 using ShopApplication.Repositories;
+using ShopApplication.Services.Interface;
 using ShopDomain.Entities;
 using ShopDomain.Exceptions;
 
-namespace ShopApplication.Services;
+namespace ShopApplication.Services.Implementation;
 
-public class CommentService(ICommentRepository repository)
+public class CommentService(ICommentRepository repository) : ICommentService
 {
     public async Task<IReadOnlyList<CommentDto>> GetAllAsync(CancellationToken cancellationToken = default)
     {

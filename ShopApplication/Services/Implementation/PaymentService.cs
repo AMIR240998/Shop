@@ -2,7 +2,7 @@ using ShopApplication.DTOs.Payment;
 using ShopApplication.Repositories;
 using ShopDomain.Entities;
 
-namespace ShopApplication.Services;
+namespace ShopApplication.Services.Implementation;
 
 public class PaymentService(IPaymentGateway paymentGateway, IPaymentRepository paymentRepository)
 {

@@ -1,16 +1,16 @@
-using System.Net.Mime;
 using ShopApplication.Caching;
 using ShopApplication.DTOs;
 using ShopApplication.DTOs.Product;
 using ShopApplication.Repositories;
+using ShopApplication.Services.Interface;
 using ShopDomain.Entities;
 using ShopDomain.Exceptions;
 
-namespace ShopApplication.Services;
+namespace ShopApplication.Services.Implementation;
 
 public class ProductService(IProductRepository productRepository,
     ProductCache productCache,
-    IFileStorage arvanCloudFileStorage)
+    IFileStorage arvanCloudFileStorage) : IProductService
 {
     public Task<PagedResultDto<ProductDto>> GetAllPagedAsync(
         int pageNumber,

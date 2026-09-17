@@ -1,11 +1,12 @@
 using ShopApplication.DTOs.Discount;
 using ShopApplication.Repositories;
+using ShopApplication.Services.Interface;
 using ShopDomain.Entities;
 using ShopDomain.Exceptions;
 
-namespace ShopApplication.Services;
+namespace ShopApplication.Services.Implementation;
 
-public class DiscountService(IDiscountRepository repository)
+public class DiscountService(IDiscountRepository repository) : IDiscountService
 {
     public async Task<IReadOnlyList<DiscountDto>> GetAllAsync(CancellationToken cancellationToken = default)
     {

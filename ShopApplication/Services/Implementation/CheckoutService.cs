@@ -1,14 +1,15 @@
 using ShopApplication.Repositories;
+using ShopApplication.Services.Interface;
 using ShopDomain.Entities;
 using ShopDomain.Exceptions;
 
-namespace ShopApplication.Services;
+namespace ShopApplication.Services.Implementation;
 
 public class CheckoutService(
     IProductRepository productRepository,
     IOrderRepository orderRepository,
     IBasketRepository basketRepository,
-    IUnitOfWork unitOfWork)
+    IUnitOfWork unitOfWork) : ICheckoutService
 {
     public async Task CheckoutAsync(long basketId, CancellationToken cancellationToken = default)
     {

@@ -1,10 +1,11 @@
 using ShopApplication.DTOs;
 using ShopApplication.Repositories;
+using ShopApplication.Services.Interface;
 using ShopDomain.Entities;
 
-namespace ShopApplication.Services;
+namespace ShopApplication.Services.Implementation;
 
-public class CategoryService(ICategoryRepository repository)
+public class CategoryService(ICategoryRepository repository) : ICategoryService
 {
     public async Task<List<CategoryDto>> GetAllAsync(CancellationToken cancellationToken = default)
     {
